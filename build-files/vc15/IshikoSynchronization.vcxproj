@@ -153,7 +153,7 @@
     <ClCompile Include="..\..\src\Spinlock.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Ishiko\Errors.hpp" />
+    <ClInclude Include="..\..\include\Ishiko\Synchronization.hpp" />
     <ClInclude Include="..\..\include\Ishiko\Synchronization\Spinlock.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
