@@ -30,7 +30,7 @@ library IshikoSynchronization
 
     headers
     {
-        ../../include/Ishiko/Errors.hpp
+        ../../include/Ishiko/Synchronization.hpp
         ../../include/Ishiko/Synchronization/Spinlock.hpp
     }
 
