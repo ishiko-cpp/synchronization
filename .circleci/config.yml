@@ -11,7 +11,7 @@ jobs:
           path: /workspace/projects/ishiko/cpp/synchronization
       - run:
           name: "Build: Ishiko/C++ Synchronization"
-          command: cd /projects/ishiko/cpp/synchronization/build-files/gnumake && make
+          command: cd /workspace/projects/ishiko/cpp/synchronization/build-files/gnumake && make
 workflows:
   version: 2
   continuous_build:
