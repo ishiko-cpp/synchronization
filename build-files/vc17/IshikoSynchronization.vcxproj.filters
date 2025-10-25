@@ -20,6 +20,9 @@
     <ClInclude Include="..\..\include\Ishiko\Synchronization.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Ishiko\Synchronization\linkoptions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\Ishiko\Synchronization\Spinlock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
