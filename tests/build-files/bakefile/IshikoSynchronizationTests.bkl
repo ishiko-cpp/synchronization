@@ -1,4 +1,5 @@
 ishikopath = envvar("ISHIKO_CPP_ROOT");
+import $(ishikopath)/concurrency/include/Ishiko/Concurrency.bkl;
 import $(ishikopath)/synchronization/include/Ishiko/Synchronization.bkl;
 import $(ishikopath)/test-framework/include/Ishiko/TestFramework/Core.bkl;
 
@@ -9,7 +10,7 @@ vs2022.solutionfile = ../vc17/IshikoSynchronizationTests.sln;
 vs2019.solutionfile = ../vc16/IshikoSynchronizationTests.sln;
 vs2017.solutionfile = ../vc15/IshikoSynchronizationTests.sln;
 
-program IshikoSynchronizationTests : IshikoSynchronization, IshikoTestFrameworkCore
+program IshikoSynchronizationTests : IshikoConcurrency, IshikoSynchronization, IshikoTestFrameworkCore
 {
     archs = x86 x86_64;
 

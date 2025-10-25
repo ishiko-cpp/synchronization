@@ -3,7 +3,7 @@
 
 #include "SpinlockTests.hpp"
 #include "Ishiko/Synchronization/Spinlock.hpp"
-#include <thread>
+#include <Ishiko/Concurrency.hpp>
 
 using namespace Ishiko;
 
@@ -60,12 +60,13 @@ void SpinlockTests::AcquireTest2(Test& test)
 {
     int result = 0;
 
-    std::thread thread1(SpinlockAcquireTest2Helper, &result);
-    std::thread thread2(SpinlockAcquireTest2Helper, &result);
+    Thread thread1(SpinlockAcquireTest2Helper, &result);
+    Thread thread2(SpinlockAcquireTest2Helper, &result);
     thread1.resume();
     thread2.resume();
     thread1.join();
     thread2.join();
 
     ISHIKO_TEST_FAIL_IF_NEQ(result, 40000);
+    ISHIKO_TEST_PASS();
 }
