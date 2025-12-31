@@ -34,6 +34,9 @@ jobs:
           name: "Install test dependency: Ishiko/C++ Time"
           command: cd /workspace/projects/ishiko/cpp && git clone https://github.com/ishiko-cpp/time.git && cd time/build-files/gnumake && make
       - run:
+          name: "Install test dependency: Ishiko/C++ Concurrency"
+          command: cd /workspace/projects/ishiko/cpp && git clone https://github.com/ishiko-cpp/concurrency.git && cd concurrency/build-files/gnumake && make
+      - run:
           name: "Install test dependency: Ishiko/C++ Process"
           command: cd /workspace/projects/ishiko/cpp && git clone https://github.com/ishiko-cpp/process.git && cd process/build-files/gnumake && make
       - run:
