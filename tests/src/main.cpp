@@ -1,7 +1,9 @@
-// SPDX-FileCopyrightText: 2005-2024 Xavier Leclercq
+// SPDX-FileCopyrightText: 2005-2026 Xavier Leclercq
 // SPDX-License-Identifier: BSL-1.0
 
-//#include "SpinlockTests.hpp"
+#include "BarrierTests.hpp"
+#include "SpinlockTests.hpp"
+#include "Ishiko/Synchronization/linkoptions.hpp"
 #include <Ishiko/TestFramework/Core.hpp>
 #include <exception>
 
@@ -18,7 +20,8 @@ int main(int argc, char* argv[])
         TestHarness the_test_harness("Ishiko/C++ Synchronization Library Tests", configuration);
 
         TestSequence& the_tests = the_test_harness.tests();
-        //the_tests.append<SpinlockTests>();
+        the_tests.append<SpinlockTests>();
+        the_tests.append<BarrierTests>();
 
         return the_test_harness.run();
     }
