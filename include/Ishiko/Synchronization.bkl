@@ -1,0 +1,23 @@
+ishikopath = envvar("ISHIKO_CPP_ROOT");
+import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
+
+setting ISHIKO_CPP_SYNCHRONIZATION_ROOT
+{
+    help = "Path to the Ishiko/C++ Synchronization installation";
+    default = '$(ISHIKO_CPP_ROOT)/synchronization';
+}
+
+template IshikoSynchronization : Boost
+{
+    includedirs += $(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/include;
+
+    if ($(toolset) == gnu)
+    {
+        libdirs += $(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        libdirs += $(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/lib/$(arch);
+    }
+}

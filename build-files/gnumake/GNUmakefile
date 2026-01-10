@@ -33,6 +33,11 @@ override CXXFLAGS += -O2
 else ifneq (,$(config))
 $(warning Unknown configuration "$(config)")
 endif
+#
+# Additionally, this makefile is customizable with the following
+# settings:
+#
+#      ISHIKO_CPP_BOOST_ROOT  Path to the Boost installation
 
 # Use "make RANLIB=''" for platforms without ranlib.
 RANLIB ?= ranlib
@@ -54,14 +59,27 @@ _builddir := $(if $(findstring $(abspath $(builddir)),$(builddir)),,../../)$(bui
 _builddir_error := $(shell mkdir -p $(_builddir) 2>&1)
 $(if $(_builddir_error),$(error Failed to create build directory: $(_builddir_error)))
 endif
+
+# ------------
+# Configurable settings:
+# 
+
+# Path to the Boost installation
+ISHIKO_CPP_BOOST_ROOT ?= $(BOOST_ROOT)
+
+# ------------
+
 all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),IshikoSynchronization-d,IshikoSynchronization).a
 
-../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),IshikoSynchronization-d,IshikoSynchronization).a: $(_builddir)IshikoSynchronization_Spinlock.o
-	$(AR) rc $@ $(_builddir)IshikoSynchronization_Spinlock.o
+../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),IshikoSynchronization-d,IshikoSynchronization).a: $(_builddir)IshikoSynchronization_Barrier.o $(_builddir)IshikoSynchronization_Spinlock.o
+	$(AR) rc $@ $(_builddir)IshikoSynchronization_Barrier.o $(_builddir)IshikoSynchronization_Spinlock.o
 	$(RANLIB) $@
 
+$(_builddir)IshikoSynchronization_Barrier.o: ../../src/Barrier.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BOOST_ROOT)/include -I../../include/Ishiko/Synchronization -std=c++11 ../../src/Barrier.cpp
+
 $(_builddir)IshikoSynchronization_Spinlock.o: ../../src/Spinlock.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I../../include/Ishiko/Synchronization -std=c++11 ../../src/Spinlock.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BOOST_ROOT)/include -I../../include/Ishiko/Synchronization -std=c++11 ../../src/Spinlock.cpp
 
 clean:
 	rm -f $(_builddir)*.o
