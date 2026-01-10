@@ -28,11 +28,13 @@ program IshikoSynchronizationTests : IshikoConcurrency, IshikoSynchronization, I
 
     headers
     {
+        ../../src/BarrierTests.hpp
         ../../src/SpinlockTests.hpp
     }
 
     sources
     {
+        ../../src/BarrierTests.cpp
         ../../src/main.cpp
         ../../src/SpinlockTests.cpp
     }
