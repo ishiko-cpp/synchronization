@@ -61,7 +61,7 @@ all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),IshikoSynchron
 	$(RANLIB) $@
 
 $(_builddir)IshikoSynchronization_Spinlock.o: ../../src/Spinlock.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I../../include/Ishiko/Synchronization -std=c++11 ../../src/Spinlock.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I../../include/Ishiko/Synchronization -std=c++14 ../../src/Spinlock.cpp
 
 clean:
 	rm -f $(_builddir)*.o

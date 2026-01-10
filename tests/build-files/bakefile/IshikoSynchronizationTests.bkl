@@ -1,4 +1,6 @@
 ishikopath = envvar("ISHIKO_CPP_ROOT");
+import $(ishikopath)/concurrency/include/Ishiko/Concurrency.bkl;
+import $(ishikopath)/synchronization/include/Ishiko/Synchronization.bkl;
 import $(ishikopath)/test-framework/include/Ishiko/TestFramework/Core.bkl;
 
 toolsets = gnu vs2022 vs2019 vs2017;
@@ -8,13 +10,13 @@ vs2022.solutionfile = ../vc17/IshikoSynchronizationTests.sln;
 vs2019.solutionfile = ../vc16/IshikoSynchronizationTests.sln;
 vs2017.solutionfile = ../vc15/IshikoSynchronizationTests.sln;
 
-program IshikoSynchronizationTests : IshikoTestFrameworkCore
+program IshikoSynchronizationTests : IshikoConcurrency, IshikoSynchronization, IshikoTestFrameworkCore
 {
     archs = x86 x86_64;
 
     if ($(toolset) == gnu)
     {
-        cxx-compiler-options = "-std=c++11";
+        cxx-compiler-options = "-std=c++14";
         libs += IshikoTestFrameworkCore IshikoConfiguration IshikoXML IshikoFileSystem IshikoIO IshikoProcess IshikoTime IshikoText IshikoErrors IshikoBasePlatform;
         libs += fmt boost_filesystem;
     }
@@ -24,8 +26,14 @@ program IshikoSynchronizationTests : IshikoTestFrameworkCore
         cxx-compiler-options = "/utf-8";
     }
 
+    headers
+    {
+        ../../src/SpinlockTests.hpp
+    }
+
     sources
     {
         ../../src/main.cpp
+        ../../src/SpinlockTests.cpp
     }
 }

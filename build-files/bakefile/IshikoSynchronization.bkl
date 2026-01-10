@@ -13,7 +13,7 @@ library IshikoSynchronization
 
     if ($(toolset) == gnu)
     {
-        cxx-compiler-options = "-std=c++11";
+        cxx-compiler-options = "-std=c++14";
         outputdir = ../../lib;
     }
 
@@ -31,6 +31,7 @@ library IshikoSynchronization
     headers
     {
         ../../include/Ishiko/Synchronization.hpp
+        ../../include/Ishiko/Synchronization/linkoptions.hpp
         ../../include/Ishiko/Synchronization/Spinlock.hpp
     }
 

@@ -1,0 +1,20 @@
+setting ISHIKO_CPP_SYNCHRONIZATION_ROOT
+{
+    help = "Path to the Ishiko/C++ Synchronization installation";
+    default = '$(ISHIKO_CPP_ROOT)/synchronization';
+}
+
+template IshikoSynchronization
+{
+    includedirs += $(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/include;
+
+    if ($(toolset) == gnu)
+    {
+        libdirs += $(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        libdirs += $(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/lib/$(arch);
+    }
+}
