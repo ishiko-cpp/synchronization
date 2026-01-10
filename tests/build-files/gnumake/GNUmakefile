@@ -39,11 +39,11 @@ endif
 #
 #      ISHIKO_CPP_BASEPLATFORM_ROOT     Path to the Ishiko/C++ BasePlatform installation
 #      ISHIKO_CPP_CONCURRENCY_ROOT      Path to the Ishiko/C++ Concurrency installation
+#      ISHIKO_CPP_BOOST_ROOT            Path to the Boost installation
 #      ISHIKO_CPP_SYNCHRONIZATION_ROOT  Path to the Ishiko/C++ Synchronization installation
 #      ISHIKO_CPP_ERRORS_ROOT           Path to the Ishiko/C++ Errors installation
 #      ISHIKO_CPP_FMT_ROOT              Path to the fmt installation
 #      ISHIKO_CPP_MEMORY_ROOT           Path to the Ishiko/C++ Memory installation
-#      ISHIKO_CPP_BOOST_ROOT            Path to the Boost installation
 #      ISHIKO_CPP_TEXT_ROOT             Path to the Ishiko/C++ Text installation
 #      ISHIKO_CPP_CONFIGURATION_ROOT    Path to the Ishiko/C++ Configuration installation
 #      ISHIKO_CPP_IO_ROOT               Path to the Ishiko/C++ IO installation
@@ -79,6 +79,8 @@ endif
 ISHIKO_CPP_BASEPLATFORM_ROOT ?= $(ISHIKO_CPP_ROOT)/base-platform
 # Path to the Ishiko/C++ Concurrency installation
 ISHIKO_CPP_CONCURRENCY_ROOT ?= $(ISHIKO_CPP_ROOT)/concurrency
+# Path to the Boost installation
+ISHIKO_CPP_BOOST_ROOT ?= $(BOOST_ROOT)
 # Path to the Ishiko/C++ Synchronization installation
 ISHIKO_CPP_SYNCHRONIZATION_ROOT ?= $(ISHIKO_CPP_ROOT)/synchronization
 # Path to the Ishiko/C++ Errors installation
@@ -87,8 +89,6 @@ ISHIKO_CPP_ERRORS_ROOT ?= $(ISHIKO_CPP_ROOT)/errors
 ISHIKO_CPP_FMT_ROOT ?= $(FMT_ROOT)
 # Path to the Ishiko/C++ Memory installation
 ISHIKO_CPP_MEMORY_ROOT ?= $(ISHIKO_CPP_ROOT)/memory
-# Path to the Boost installation
-ISHIKO_CPP_BOOST_ROOT ?= $(BOOST_ROOT)
 # Path to the Ishiko/C++ Text installation
 ISHIKO_CPP_TEXT_ROOT ?= $(ISHIKO_CPP_ROOT)/text
 # Path to the Ishiko/C++ Configuration installation
@@ -116,14 +116,17 @@ ISHIKO_CPP_TESTFRAMEWORK_ROOT ?= $(ISHIKO_CPP_ROOT)/test-framework
 
 all: $(_builddir)IshikoSynchronizationTests
 
-$(_builddir)IshikoSynchronizationTests: $(_builddir)IshikoSynchronizationTests_main.o $(_builddir)IshikoSynchronizationTests_SpinlockTests.o
-	$(CXX) -o $@ $(LDFLAGS) $(_builddir)IshikoSynchronizationTests_main.o $(_builddir)IshikoSynchronizationTests_SpinlockTests.o -L$(ISHIKO_CPP_BASEPLATFORM_ROOT)/lib -L$(ISHIKO_CPP_CONCURRENCY_ROOT)/lib -L$(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/lib -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_FMT_ROOT)/lib -L$(ISHIKO_CPP_MEMORY_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_CONFIGURATION_ROOT)/lib -L$(ISHIKO_CPP_IO_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_DIFF_ROOT)/lib -L$(ISHIKO_CPP_XML_ROOT)/lib -L$(ISHIKO_CPP_PROCESS_ROOT)/lib -L$(ISHIKO_CPP_TIME_ROOT)/lib -L$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/lib -lIshikoTestFrameworkCore -lIshikoConfiguration -lIshikoXML -lIshikoFileSystem -lIshikoIO -lIshikoProcess -lIshikoTime -lIshikoText -lIshikoErrors -lIshikoBasePlatform -lfmt -lboost_filesystem -pthread
+$(_builddir)IshikoSynchronizationTests: $(_builddir)IshikoSynchronizationTests_BarrierTests.o $(_builddir)IshikoSynchronizationTests_main.o $(_builddir)IshikoSynchronizationTests_SpinlockTests.o
+	$(CXX) -o $@ $(LDFLAGS) $(_builddir)IshikoSynchronizationTests_BarrierTests.o $(_builddir)IshikoSynchronizationTests_main.o $(_builddir)IshikoSynchronizationTests_SpinlockTests.o -L$(ISHIKO_CPP_BASEPLATFORM_ROOT)/lib -L$(ISHIKO_CPP_CONCURRENCY_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/lib -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_FMT_ROOT)/lib -L$(ISHIKO_CPP_MEMORY_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_CONFIGURATION_ROOT)/lib -L$(ISHIKO_CPP_IO_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_DIFF_ROOT)/lib -L$(ISHIKO_CPP_XML_ROOT)/lib -L$(ISHIKO_CPP_PROCESS_ROOT)/lib -L$(ISHIKO_CPP_TIME_ROOT)/lib -L$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/lib -lIshikoTestFrameworkCore -lIshikoConfiguration -lIshikoXML -lIshikoFileSystem -lIshikoIO -lIshikoProcess -lIshikoTime -lIshikoText -lIshikoErrors -lIshikoBasePlatform -lfmt -lboost_filesystem -pthread
+
+$(_builddir)IshikoSynchronizationTests_BarrierTests.o: ../../src/BarrierTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_CONCURRENCY_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -std=c++14 ../../src/BarrierTests.cpp
 
 $(_builddir)IshikoSynchronizationTests_main.o: ../../src/main.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_CONCURRENCY_ROOT)/include -I$(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -std=c++14 ../../src/main.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_CONCURRENCY_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -std=c++14 ../../src/main.cpp
 
 $(_builddir)IshikoSynchronizationTests_SpinlockTests.o: ../../src/SpinlockTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_CONCURRENCY_ROOT)/include -I$(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -std=c++14 ../../src/SpinlockTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_CONCURRENCY_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_SYNCHRONIZATION_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -std=c++14 ../../src/SpinlockTests.cpp
 
 clean:
 	rm -f $(_builddir)*.o

@@ -1,3 +1,6 @@
+ishikopath = envvar("ISHIKO_CPP_ROOT");
+import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
+
 toolsets = gnu vs2022 vs2019 vs2017;
 
 gnu.makefile = ../gnumake/GNUmakefile;
@@ -5,7 +8,7 @@ vs2022.solutionfile = ../vc17/IshikoSynchronization.sln;
 vs2019.solutionfile = ../vc16/IshikoSynchronization.sln;
 vs2017.solutionfile = ../vc15/IshikoSynchronization.sln;
 
-library IshikoSynchronization
+library IshikoSynchronization : Boost
 {
     archs = x86 x86_64;
 
@@ -31,12 +34,14 @@ library IshikoSynchronization
     headers
     {
         ../../include/Ishiko/Synchronization.hpp
+        ../../include/Ishiko/Synchronization/Barrier.hpp
         ../../include/Ishiko/Synchronization/linkoptions.hpp
         ../../include/Ishiko/Synchronization/Spinlock.hpp
     }
 
     sources
     {
+        ../../src/Barrier.cpp
         ../../src/Spinlock.cpp
     }
 }

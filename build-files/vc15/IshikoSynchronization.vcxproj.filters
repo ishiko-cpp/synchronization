@@ -20,6 +20,9 @@
     <ClInclude Include="..\..\include\Ishiko\Synchronization.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Ishiko\Synchronization\Barrier.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\Ishiko\Synchronization\linkoptions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -28,6 +31,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Barrier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Spinlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

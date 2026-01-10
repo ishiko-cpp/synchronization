@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2005-2025 Xavier Leclercq
+// SPDX-FileCopyrightText: 2005-2026 Xavier Leclercq
 // SPDX-License-Identifier: BSL-1.0
 
 #include "SpinlockTests.hpp"
