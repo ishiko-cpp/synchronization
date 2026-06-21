@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="https://nuime.org/schema/core/1">
+  <name>synchronization</name>
+  <targets>
+    <target>
+      <name>synchronization-lib</name>
+      <labels>
+        <label>nuime:product</label>
+      </labels>
+      <properties>
+        <property name="nuime:test-suite">
+          <target-ref>
+            <location>
+              <url>https://github.com/ishiko-cpp/synchronization/tests/build-files/nuime/synchronization-tests.nuime</url>
+            </location>
+            <name>synchronization-tests</name>
+          </target-ref>
+        </property>
+      </properties>
+    </target>
+  </targets>
+  <subprojects>
+    <subproject>
+      <name>synchronization-tests</name>
+      <labels>
+        <label>nuime:tests</label>
+      </labels>
+      <location>
+        <url>https://github.com/ishiko-cpp/synchronization/tests/build-files/nuime/synchronization-tests.nuime</url>
+      </location>
+    </subproject>
+  </subprojects>
+</project>
